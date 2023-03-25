@@ -1,0 +1,30 @@
+target remote localhost:1234
+dir ~/aos/lab/busybox
+add-symbol-file ~/aos/lab/busybox/busybox_unstripped 0x8048400
+b do_execve if $lx_current().mm==0
+break __schedule
+b kernel/sched/core.c:3188
+break __switch_to
+b smp_apic_timer_interrupt
+b do_IRQ
+b ret_from_intr
+b ret_from_exception
+b restore_all
+b __do_softirq
+b kernel/softirq.c:302
+b do_page_fault
+b do_device_not_available
+b do_fast_syscall_32
+b arch/x86/entry/common.c:486
+b restore_all
+b prepare_exit_to_usermode
+b enqueue_task_fair
+b dequeue_task_fair
+b update_curr
+b kernel/sched/fair.c:734
+b prepare_exit_to_usermode
+b set_tsk_need_resched
+disable 2-23
+dir abc
+add-symbol-file abc/abc 0x080482b0
+b abc.c:main

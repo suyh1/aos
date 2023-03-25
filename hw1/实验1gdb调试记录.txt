@@ -1,0 +1,932 @@
+Reading symbols from vmlinux...done.
+(gdb) target remote localhost:1234
+Remote debugging using localhost:1234
+0x0000fff0 in ?? ()
+(gdb) b rest_init
+Breakpoint 1 at 0xc16d03c0: file init/main.c, line 387.
+(gdb) b _do_fork if $lx_current().pid==0
+Breakpoint 2 at 0xc10496e9: file kernel/fork.c, line 1708.
+(gdb) b _do_fork if $lx_current().pid==1
+Note: breakpoint 2 also set at pc 0xc10496e9.
+Breakpoint 3 at 0xc10496e9: file kernel/fork.c, line 1708.
+(gdb) b _do_fork if $lx_current().mm!=0
+Note: breakpoints 2 and 3 also set at pc 0xc10496e9.
+Breakpoint 4 at 0xc10496e9: file kernel/fork.c, line 1708.
+(gdb) b _do_fork if $lx_current().mm!=0
+Note: breakpoints 2, 3 and 4 also set at pc 0xc10496e9.
+Breakpoint 5 at 0xc10496e9: file kernel/fork.c, line 1708.
+(gdb) b do_execve if $lx_current().pid==1
+Breakpoint 6 at 0xc114771b: file fs/exec.c, line 1643.
+(gdb) b do_execve if $lx_current().mm!=0
+Note: breakpoint 6 also set at pc 0xc114771b.
+Breakpoint 7 at 0xc114771b: file fs/exec.c, line 1643.
+(gdb) display $lx_current().pid
+1: $lx_current().pid = 0
+(gdb) display $lx_current().comm
+2: $lx_current().comm = '\000' <repeats 15 times>
+(gdb) display $lx_current().mm
+3: $lx_current().mm = (struct mm_struct *) 0x0
+(gdb) display $lx_current().parent->pid
+4: $lx_current().parent->pid = 0
+(gdb) display $lx_current().parent->comm
+5: $lx_current().parent->comm = '\000' <repeats 15 times>
+(gdb) display $lx_current().parent->mm
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+(gdb) c
+Continuing.
+
+Breakpoint 1, rest_init () at init/main.c:387
+387     {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 0
+(gdb) c
+Continuing.
+
+Breakpoint 2, _do_fork (clone_flags=8389376, stack_start=3245147192,
+    stack_size=0, parent_tidptr=0x0, child_tidptr=0x0, tls=0)
+    at kernel/fork.c:1708
+1708    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 0
+(gdb) s
+1719            if (!(clone_flags & CLONE_UNTRACED)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 0
+(gdb) n
+1710            int trace = 0;
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 0
+(gdb) n
+1731            p = copy_process(clone_flags, stack_start, stack_size,
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 0
+(gdb) n
+1737            if (!IS_ERR(p)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 0
+(gdb) p p->pid
+$1 = 1
+(gdb) c
+Continuing.
+
+Breakpoint 2, _do_fork (clone_flags=8390400, stack_start=3238405155,
+    stack_size=0, parent_tidptr=0x0, child_tidptr=0x0, tls=0)
+    at kernel/fork.c:1708
+1708    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 0
+(gdb) n
+1719            if (!(clone_flags & CLONE_UNTRACED)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 0
+(gdb) n
+1710            int trace = 0;
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 0
+(gdb) n
+1731            p = copy_process(clone_flags, stack_start, stack_size,
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 0
+(gdb) n
+1737            if (!IS_ERR(p)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 0
+(gdb) p p->pid
+$2 = 2
+(gdb) c
+Continuing.
+
+Breakpoint 6, do_execve (filename=0xc7638000, __argv=0xc191a800 <argv_init>,
+    __envp=0xc191a760 <envp_init>) at fs/exec.c:1643
+1643    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) x/s filename->name
+0xc7638010:     "sbin/init"
+(gdb) n
+1646            return do_execveat_common(AT_FDCWD, filename, argv, envp, 0);
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0x0
+2: $lx_current().comm = "swapper/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1647    }
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+run_init_process (init_filename=<optimized out>) at init/main.c:914
+914     }
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+kernel_init (unused=<optimized out>) at init/main.c:948
+948                     if (!ret)
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+975     }
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+ret_from_kernel_thread () at arch/x86/entry/entry_32.S:230
+230             movl    $0, PT_EAX(%esp)
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+237             movl    %esp, %eax
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+238             call    syscall_return_slowpath
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+239             jmp     restore_all
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+restore_all_notrace () at arch/x86/entry/entry_32.S:362
+362             movl    PT_EFLAGS(%esp), %eax           # mix EFLAGS, SS and CS
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+368             movb    PT_OLDSS(%esp), %ah
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+369             movb    PT_CS(%esp), %al
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+370             andl    $(X86_EFLAGS_VM | (SEGMENT_TI_MASK << 8) | SEGMENT_RPL_MASK), %eax
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+371             cmpl    $((SEGMENT_LDT << 8) | USER_RPL), %eax
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+372             je ldt_ss                               # returning to user-space with LDT SS
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+restore_nocheck () at arch/x86/entry/entry_32.S:375
+375             RESTORE_REGS 4                          # skip orig_eax/error_code
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+irq_return () at arch/x86/entry/entry_32.S:377
+377             INTERRUPT_RETURN
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+0x08110464 in ?? ()
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+Cannot find bounds of current function
+(gdb) s
+Cannot find bounds of current function
+(gdb) n
+Cannot find bounds of current function
+(gdb) c
+Continuing.
+
+Breakpoint 3, _do_fork (clone_flags=16657, stack_start=0, stack_size=0,
+    parent_tidptr=0x0, child_tidptr=0x0, tls=0) at kernel/fork.c:1708
+1708    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1719            if (!(clone_flags & CLONE_UNTRACED)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1720                    if (clone_flags & CLONE_VFORK)
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1721                            trace = PTRACE_EVENT_VFORK;
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1727                    if (likely(!ptrace_event_enabled(current, trace)))
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1728                            trace = 0;
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1731            p = copy_process(clone_flags, stack_start, stack_size,
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1737            if (!IS_ERR(p)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) p p->pid
+$3 = 973
+(gdb) Quit
+(gdb) c
+Continuing.
+
+Breakpoint 7, do_execve (filename=0xc7638000, __argv=0xbffffcdc,
+    __envp=0x828fa00) at fs/exec.c:1643
+1643    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) x/s filename->name
+0xc7638010:     "/etc/init.d/rcS"
+(gdb) c
+Continuing.
+
+Breakpoint 4, _do_fork (clone_flags=18874385, stack_start=0, stack_size=0,
+    parent_tidptr=0x0, child_tidptr=0x828e8e8, tls=0) at kernel/fork.c:1708
+1708    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1719            if (!(clone_flags & CLONE_UNTRACED)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1720                    if (clone_flags & CLONE_VFORK)
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1722                    else if ((clone_flags & CSIGNAL) != SIGCHLD)
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1725                            trace = PTRACE_EVENT_FORK;
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1727                    if (likely(!ptrace_event_enabled(current, trace)))
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1728                            trace = 0;
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1731            p = copy_process(clone_flags, stack_start, stack_size,
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1737            if (!IS_ERR(p)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) p p->pid
+$4 = 974
+(gdb) c
+Continuing.
+
+Breakpoint 7, do_execve (filename=0xc7638000, __argv=0x828fcd0,
+    __envp=0x828fcec) at fs/exec.c:1643
+1643    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6054000
+5: $lx_current().parent->comm = "rcS\000\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 973
+3: $lx_current().mm = (struct mm_struct *) 0xc6055a40
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 974
+(gdb) x/s filename->name
+0xc7638010:     "/bin/mount"
+(gdb) c
+Continuing.
+
+Breakpoint 4, _do_fork (clone_flags=18874385, stack_start=0, stack_size=0,
+    parent_tidptr=0x0, child_tidptr=0x828e8e8, tls=0) at kernel/fork.c:1708
+1708    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1719            if (!(clone_flags & CLONE_UNTRACED)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1720                    if (clone_flags & CLONE_VFORK)
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1722                    else if ((clone_flags & CSIGNAL) != SIGCHLD)
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1725                            trace = PTRACE_EVENT_FORK;
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1727                    if (likely(!ptrace_event_enabled(current, trace)))
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1728                            trace = 0;
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1731            p = copy_process(clone_flags, stack_start, stack_size,
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1737            if (!IS_ERR(p)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) p p->pid
+$5 = 975
+(gdb) c
+Continuing.
+
+Breakpoint 7, do_execve (filename=0xc7638000, __argv=0x828fcd0,
+    __envp=0x828fcec) at fs/exec.c:1643
+1643    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6054000
+5: $lx_current().parent->comm = "rcS\000\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 973
+3: $lx_current().mm = (struct mm_struct *) 0xc60542a0
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 975
+(gdb) x/s filename->name
+0xc7638010:     "/bin/mount"
+(gdb) c
+Continuing.
+
+Breakpoint 4, _do_fork (clone_flags=18874385, stack_start=0, stack_size=0,
+    parent_tidptr=0x0, child_tidptr=0x828e8e8, tls=0) at kernel/fork.c:1708
+1708    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1719            if (!(clone_flags & CLONE_UNTRACED)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1720                    if (clone_flags & CLONE_VFORK)
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1722                    else if ((clone_flags & CSIGNAL) != SIGCHLD)
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1725                            trace = PTRACE_EVENT_FORK;
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1727                    if (likely(!ptrace_event_enabled(current, trace)))
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1728                            trace = 0;
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1731            p = copy_process(clone_flags, stack_start, stack_size,
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) n
+1737            if (!IS_ERR(p)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 973
+(gdb) p p->pid
+$6 = 976
+(gdb) c
+Continuing.
+
+Breakpoint 7, do_execve (filename=0xc7638000, __argv=0x828fc68,
+    __envp=0x828fc74) at fs/exec.c:1643
+1643    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6054000
+5: $lx_current().parent->comm = "rcS\000\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 973
+3: $lx_current().mm = (struct mm_struct *) 0xc6054540
+2: $lx_current().comm = "rcS\000\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 976
+(gdb) x/s filename->name
+0xc7638010:     "/sbin/mdev"
+(gdb) c
+Continuing.
+
+Breakpoint 3, _do_fork (clone_flags=18874385, stack_start=0, stack_size=0,
+    parent_tidptr=0x0, child_tidptr=0x828e8e8, tls=0) at kernel/fork.c:1708
+1708    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1719            if (!(clone_flags & CLONE_UNTRACED)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1720                    if (clone_flags & CLONE_VFORK)
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1722                    else if ((clone_flags & CSIGNAL) != SIGCHLD)
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1725                            trace = PTRACE_EVENT_FORK;
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1727                    if (likely(!ptrace_event_enabled(current, trace)))
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1728                            trace = 0;
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1731            p = copy_process(clone_flags, stack_start, stack_size,
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1737            if (!IS_ERR(p)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) p p->pid
+$7 = 977
+(gdb) c
+Continuing.
+
+Breakpoint 3, _do_fork (clone_flags=18874385, stack_start=0, stack_size=0,
+    parent_tidptr=0x0, child_tidptr=0x828e8e8, tls=0) at kernel/fork.c:1708
+1708    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1719            if (!(clone_flags & CLONE_UNTRACED)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1720                    if (clone_flags & CLONE_VFORK)
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1722                    else if ((clone_flags & CSIGNAL) != SIGCHLD)
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1725                            trace = PTRACE_EVENT_FORK;
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1727                    if (likely(!ptrace_event_enabled(current, trace)))
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1728                            trace = 0;
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1731            p = copy_process(clone_flags, stack_start, stack_size,
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1737            if (!IS_ERR(p)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) p p->pid
+$8 = 978
+(gdb) c
+Continuing.
+
+Breakpoint 3, _do_fork (clone_flags=18874385, stack_start=0, stack_size=0,
+    parent_tidptr=0x0, child_tidptr=0x828e8e8, tls=0) at kernel/fork.c:1708
+1708    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1719            if (!(clone_flags & CLONE_UNTRACED)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1720                    if (clone_flags & CLONE_VFORK)
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1722                    else if ((clone_flags & CSIGNAL) != SIGCHLD)
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1725                            trace = PTRACE_EVENT_FORK;
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1727                    if (likely(!ptrace_event_enabled(current, trace)))
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1728                            trace = 0;
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1731            p = copy_process(clone_flags, stack_start, stack_size,
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) n
+1737            if (!IS_ERR(p)) {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) p p->pid
+$9 = 979
+(gdb) c
+Continuing.
+
+Breakpoint 3, _do_fork (clone_flags=18874385, stack_start=0, stack_size=0,
+    parent_tidptr=0x0, child_tidptr=0x828e8e8, tls=0) at kernel/fork.c:1708
+1708    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0x0
+5: $lx_current().parent->comm = "swapper/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 0
+3: $lx_current().mm = (struct mm_struct *) 0xc6055ce0
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 1
+(gdb) c
+Continuing.
+
+Breakpoint 7, do_execve (filename=0xc763e480, __argv=0xbffffcf0,
+    __envp=0x828fa00) at fs/exec.c:1643
+1643    {
+6: $lx_current().parent->mm = (struct mm_struct *) 0xc6055ce0
+5: $lx_current().parent->comm = "init\000er/0\000\000\000\000\000\000"
+4: $lx_current().parent->pid = 1
+3: $lx_current().mm = (struct mm_struct *) 0xc6054000
+2: $lx_current().comm = "init\000er/0\000\000\000\000\000\000"
+1: $lx_current().pid = 977
+(gdb) x/s filename->name
+0xc763e490:     "/bin/sh"
+(gdb) c
+Continuing.
